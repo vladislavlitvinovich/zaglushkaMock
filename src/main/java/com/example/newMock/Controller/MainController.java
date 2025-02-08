@@ -33,17 +33,17 @@ public class MainController {
             String clientId = requestDTO.getClientId();
             char firstDigit = clientId.charAt(0);
             String currency;
-            BigDecimal maxLimit;
+            int maxLimit;
             String rqUID = requestDTO.getRqUID();
 
             if(firstDigit == '8'){
-                maxLimit = new BigDecimal(2000.00);
+                maxLimit = 2000;
                 currency = "US";
             } else if (firstDigit == '9') {
-                maxLimit = new BigDecimal(1000.00);
+                maxLimit = 1000;
                 currency = "EU";
             } else {
-                maxLimit = new BigDecimal(10000.00);
+                maxLimit = 10000;
                 currency = "RUB";
             }
 
@@ -54,7 +54,7 @@ public class MainController {
             responseDTO.setClientId(clientId);
             responseDTO.setAccount(requestDTO.getAccount());
             responseDTO.setCurrency(currency);
-            responseDTO.setBalance(random.nextInt(2001));
+            responseDTO.setBalance(random.nextInt(maxLimit+1));
             responseDTO.setMaxLimit(maxLimit);
 
             log.error("********* RequestDTO *********" + mapper.writerWithDefaultPrettyPrinter().writeValueAsString(requestDTO));
